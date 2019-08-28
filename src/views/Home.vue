@@ -1,18 +1,21 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <BaseInput type="text" placeholder="Fancy a beer..." :value.sync="searchterm" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import BaseInput from "@/components/BaseInput.vue";
 
 export default {
-  name: 'home',
+  name: "home",
+  data: function() {
+    return {
+      searchterm: ""
+    };
+  },
   components: {
-    HelloWorld
+    BaseInput
   }
-}
+};
 </script>
