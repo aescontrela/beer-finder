@@ -1,21 +1,26 @@
 <template>
   <div>
-    <BaseInput type="text" placeholder="Fancy a beer..." :value.sync="searchterm" />
+    <Search />
+    {{beers}}
   </div>
 </template>
 
 <script>
-import BaseInput from "@/components/BaseInput.vue";
+import { mapState } from 'vuex'
+import Search from '@/components/Search.vue'
 
 export default {
-  name: "home",
-  data: function() {
-    return {
-      searchterm: ""
-    };
+  name: 'home',
+  created() {
+    this.$store.dispatch('fetchAll')
+  },
+  computed:{
+    ...mapState({
+      beers: state => state.beers.beers,
+    })
   },
   components: {
-    BaseInput
+    Search
   }
-};
+}
 </script>

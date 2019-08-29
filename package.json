@@ -26,8 +26,12 @@
     "babel-jest": "^23.6.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "fetch-mock": "^7.3.9",
+    "lodash.debounce": "^4.0.8",
+    "node-fetch": "^2.6.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
+    "vue-async-computed": "^3.7.0",
     "vue-template-compiler": "^2.6.10"
   }
 }
