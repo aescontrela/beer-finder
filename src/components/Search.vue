@@ -28,7 +28,7 @@ export default {
     toggleVisibility: function () {
       this.show = !this.show
     },
-    fetchResults: function(){
+    fetchResults: function () {
       const searchParam = this.query.replace(' ', '_')
       this.$store.dispatch('fetchBeersByName', searchParam)
     }

@@ -2,20 +2,32 @@ import store from '../../store'
 import fetch from 'node-fetch'
 import moment from 'moment'
 
+const normalizedBeers = (data) => data.map(beer => ({
+  ...beer,
+  first_brewed: moment(`"01/"${beer.first_brewed}`),
+  ingredients: Object.keys(beer.ingredients).map(ingredient =>
+    typeof beer.ingredients[ingredient] !== 'object'
+      ? ({ name: ingredient, list: [ beer.ingredients[ingredient] ] })
+      : ({ name: ingredient, list: beer.ingredients[ingredient].map(item => item.name) })
+  )
+}))
+
 export default {
   state: {
     beers: [],
     status: 'hasFailed'
   },
   getters: {
-    all: (state) => {}
+    beerById: (state) => (id) => state.beers.find(beer => beer.id === id),
+    beerByName: (state) => (name) => state.beers.find(beer => beer.name === name),
+    allBeers: (state) => state.beers
   },
   actions: {
     async fetchBeersByName (state, name) {
       try {
         const response = await fetch(`https://api.punkapi.com/v2/beers?beer_name=${name}`)
         const beers = response.ok ? await response.json() : []
-        store.commit('setBeers', beers)
+        store.commit('setBeers', normalizedBeers(beers))
       } catch (e) {
         store.commit('hasFailed')
       }
@@ -24,7 +36,7 @@ export default {
       try {
         const response = await fetch('https://api.punkapi.com/v2/beers')
         const beers = response.ok ? await response.json() : []
-        store.commit('setBeers', beers)
+        store.commit('setBeers', normalizedBeers(beers))
       } catch (e) {
         store.commit('hasFailed')
       }
@@ -33,7 +45,6 @@ export default {
       switch (type) {
         case 'date':
           const sortedBeers = state.beers
-            .map(d => ({ ...d, [attr]: moment(`"01/"${d[attr]}`) }))
             .sort((a, b) => {
               if (a[attr].isBefore(b[attr])) {
                 return -1
