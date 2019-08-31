@@ -1,5 +1,6 @@
 import store from '../../store'
 import fetch from 'node-fetch'
+import moment from 'moment'
 
 export default {
   state: {
@@ -26,6 +27,38 @@ export default {
         store.commit('setBeers', beers)
       } catch (e) {
         store.commit('hasFailed')
+      }
+    },
+    sortBy ({ state }, [attr, type]) {
+      switch (type) {
+        case 'date':
+          const sortedBeers = state.beers
+            .map(d => ({ ...d, [attr]: moment(`"01/"${d[attr]}`) }))
+            .sort((a, b) => {
+              if (a[attr].isBefore(b[attr])) {
+                return -1
+              } else {
+                return +1
+              }
+            })
+          state.beers = sortedBeers
+          return state
+        case 'float': {
+          return state.beers.sort((a, b) => {
+            let current = a[attr]
+            let next = b[attr]
+
+            if (current < next) {
+              return -1
+            } else if (current > next) {
+              return 1
+            } else {
+              return 0
+            }
+          })
+        }
+        default:
+          return state
       }
     }
   },

@@ -40,14 +40,14 @@ describe('Search', () => {
     expect(wrapper.vm.debounceSearchQuery).toHaveBeenCalled()
   })
 
-  it('on click close button toggle input visibility', () => {
+  it('toggle search input visibility', () => {
     wrapper.setMethods({ toggleVisibility: jest.fn() })
     wrapper.find('button').trigger('click')
 
     expect(wrapper.vm.toggleVisibility).toBeCalled()
   })
 
-  it('fetch data from a given param', () => {
+  it('fetch beers by name', () => {
     wrapper.setData({ query: 'orange' })
     wrapper.vm.fetchResults()
     expect(actions.fetchBeersByName).toHaveBeenCalled()

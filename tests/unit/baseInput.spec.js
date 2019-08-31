@@ -1,14 +1,9 @@
 /* eslint-env jest */
 
-import { shallowMount, mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import BaseInput from '@/components/BaseInput.vue'
 
 describe('BaseInput', () => {
-  it('is a Vue instance', () => {
-    const wrapper = mount(BaseInput)
-    expect(wrapper.isVueInstance()).toBeTruthy()
-  })
-
   it('set input attributes from props', () => {
     const props = {
       placeholder: 'Find me',
