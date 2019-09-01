@@ -26,7 +26,6 @@ const buzz = {
 }
 
 describe('Search', () => {
-  let wrapper
   let actions
   let state
   let store
@@ -44,18 +43,11 @@ describe('Search', () => {
       actions
     })
 
-    wrapper = shallowMount(Home, { store, localVue })
     fetchMock.get('*', [punkIpa, buzz])
   })
 
   it('fetch all beers', () => {
+    shallowMount(Home, { store, localVue })
     expect(actions.fetchAll).toHaveBeenCalled()
-  })
-
-  it('allows to sort beers', () => {
-    const sortOption = wrapper.findAll('li').at(0)
-    sortOption.trigger('click')
-
-    expect(actions.sortBy).toHaveBeenCalled()
   })
 })

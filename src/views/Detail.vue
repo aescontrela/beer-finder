@@ -1,23 +1,26 @@
 <template>
-  <div v-if="beer">
-    <img :src="beer.image_url" />
-    <div>
-      <p> {{ beer.name }} </p>
-      <p> {{ beer.description }} </p>
-      <table>
-       <colgroup span="2"></colgroup>
-       <tr
-          v-for="(item) in ingredients"
-          v-bind:key="item[0]"> <td>{{ item[0] }}</td> <td>{{ item[1] }}</td>
-        </tr>
-       
-      </table>
+  <div>
+    <Navigation />
+    <div v-if="beer">
+      <img :src="beer.image_url" />
+      <div>
+        <p> {{ beer.name }} </p>
+        <p> {{ beer.description }} </p>
+        <table>
+        <colgroup span="2"></colgroup>
+        <tr
+            v-for="(item) in ingredients"
+            v-bind:key="item[0]"> <td>{{ item[0] }}</td> <td>{{ item[1] }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Navigation from '@/components/Navigation.vue'
 
 export default {
   name: 'detail',
@@ -35,9 +38,12 @@ export default {
     beer () {
       return this.$store.getters.beerById(parseInt(this.$route.params.id))
     },
-    ingredients: function() {
+    ingredients: function () {
       return this.beer.ingredients.map(s => [s.name, s.list.join(',')])
     }
+  },
+  components: {
+    Navigation
   }
 }
 </script>
