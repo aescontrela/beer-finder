@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="search--box">
+    <button @click="toggleVisibility"><img src="@/assets/images/ico_search.svg" alt="search icon"></button>
     <BaseInput v-if="show" type="search" placeholder="Fancy a beer..." :value.sync="query" />
-    <button @click="toggleVisibility">close</button>
   </div>
 </template>
 <script>
@@ -39,4 +39,21 @@ export default {
 }
 
 </script>
-<style></style>
+
+<style lang="stylus">
+@import '../assets/styles.styl'
+
+  .search--box
+    display flex
+    align-items center
+
+    input
+      width calc(100vw - 8em)
+      padding .3em
+      margin-left 5px
+
+  @media (max-width 720px)
+    .search--box input
+      width calc(100vw - 6em)
+
+</style>

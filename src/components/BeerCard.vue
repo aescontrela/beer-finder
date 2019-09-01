@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="card">
     <a :href="linkTo">
-      <img :src="image" />
-      <div>
-        <p> {{ name }} </p>
+      <div class="card--image"><img :src="image" /></div>
+      <div class="card--contents">
+        <h2> {{ name }} </h2>
         <p> {{ tagline }} </p>
-        <p> ABV: {{ abv }} </p>
-        <p> First Brewed: {{ brewedDate }} </p>
+        <p> First Brewed at {{ brewedDate }} </p>
+        <p> {{ abv }} ABV </p>
       </div>
     </a>
   </div>
@@ -37,4 +37,38 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="stylus">
+@import '../assets/styles.styl'
+
+  .card
+    font-family: $primary
+    width 25em
+    margin: .5em;
+
+  .card a
+    display grid
+    grid-template-columns 3em auto
+    grid-template-rows auto
+    background-color $whitesmoke
+    align-items center
+    padding 1em
+    color $black
+
+    img
+      height 120px
+      object-fit contain
+      filter grayscale(0.8)
+
+  .card--contents
+    margin-left 1em
+    font-size 0.9em
+
+    h2
+      font-size 1.2em
+      font-weight bold
+
+  @media (max-width 720px)
+    .card
+      width 90%
+
+</style>

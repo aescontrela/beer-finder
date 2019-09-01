@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navigation />
-    <div>
+    <div class="list">
       <BeerCard
         v-for="item in beers"
         v-bind:key="item.id"
@@ -37,3 +37,12 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+  .list
+    display flex
+    flex-wrap wrap
+    padding: 3em 1em
+    justify-content center
+
+</style>

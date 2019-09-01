@@ -41,8 +41,18 @@ describe('BaseDropdown', () => {
     })
   })
 
+  it('toggle search input visibilit', () => {
+    wrapper.setMethods({ toggleVisibility: jest.fn() })
+    wrapper.find('button').trigger('click')
+
+    expect(wrapper.vm.toggleVisibility).toBeCalled()
+  })
+
   it('on click dispatch an action to the store', () => {
+    wrapper.setData({ show: true })
+
     const sortOption = wrapper.findAll('li').at(0)
+    wrapper.find('button').trigger('click')
     sortOption.trigger('click')
 
     expect(actions.sortBy).toHaveBeenCalled()
