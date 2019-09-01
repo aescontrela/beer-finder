@@ -35,7 +35,7 @@ describe('Search', () => {
       beers: []
     }
     actions = {
-      fetchAll: jest.fn(),
+      fetchByPage: jest.fn(),
       sortBy: jest.fn()
     }
     store = new Vuex.Store({
@@ -48,6 +48,6 @@ describe('Search', () => {
 
   it('fetch all beers', () => {
     shallowMount(Home, { store, localVue })
-    expect(actions.fetchAll).toHaveBeenCalled()
+    expect(actions.fetchByPage).toHaveBeenCalled()
   })
 })

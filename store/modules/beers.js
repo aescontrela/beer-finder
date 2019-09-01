@@ -15,7 +15,8 @@ const normalizedBeers = (data) => data.map(beer => ({
 export default {
   state: {
     beers: [],
-    status: 'hasFailed'
+    page: 1,
+    itemsPerPage: 8
   },
   getters: {
     beerById: (state) => (id) => state.beers.find(beer => beer.id === id),
@@ -35,6 +36,15 @@ export default {
     async fetchAll (state) {
       try {
         const response = await fetch('https://api.punkapi.com/v2/beers')
+        const beers = response.ok ? await response.json() : []
+        store.commit('setBeers', normalizedBeers(beers))
+      } catch (e) {
+        store.commit('hasFailed')
+      }
+    },
+    async fetchByPage ({ state }) {
+      try {
+        const response = await fetch(`https://api.punkapi.com/v2/beers?page=${state.page}&per_page=${state.itemsPerPage}`)
         const beers = response.ok ? await response.json() : []
         store.commit('setBeers', normalizedBeers(beers))
       } catch (e) {
@@ -75,11 +85,8 @@ export default {
   },
   mutations: {
     setBeers: (state, beers) => {
-      state.beers = beers
-      state.status = 'requested'
-    },
-    hasFailed: (state) => {
-      state.status = 'hasFailed'
+      state.beers = [...state.beers, ...beers]
+      state.page += 1
     }
   }
 }

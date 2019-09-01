@@ -49,10 +49,10 @@ export default {
     display grid
     grid-template-columns 3em auto
     grid-template-rows auto
-    background-color $whitesmoke
+    background-color $lightergray
     align-items center
     padding 1em
-    color $black
+    color $mediumgray
 
     img
       height 120px
@@ -66,6 +66,7 @@ export default {
     h2
       font-size 1.2em
       font-weight bold
+      color $darkred
 
   @media (max-width 720px)
     .card
