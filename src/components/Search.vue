@@ -29,8 +29,7 @@ export default {
       this.show = !this.show
     },
     fetchResults: function () {
-      const searchParam = this.query.replace(' ', '_')
-      this.$store.dispatch('fetchBeersByName', searchParam)
+      this.$store.dispatch('searchBeers', encodeURIComponent(this.query))
     }
   },
   components: {

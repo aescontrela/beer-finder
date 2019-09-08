@@ -34,10 +34,9 @@ export default {
   },
   methods: {
     handleLoad: function () {
-      const itemsToFetch = 25
       const canScroll = window.scrollY + window.innerHeight >= window.document.body.scrollHeight
 
-      if (this.$store.getters.allBeers.length < itemsToFetch && canScroll) {
+      if (canScroll) {
         this.$store.dispatch('fetchByPage')
       }
     }

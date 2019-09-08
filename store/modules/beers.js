@@ -24,6 +24,20 @@ export default {
     allBeers: (state) => state.beers
   },
   actions: {
+    async searchBeers (state, name) {
+      const url =
+        name.length > 0
+          ? `https://api.punkapi.com/v2/beers?beer_name=${name}`
+          : 'https://api.punkapi.com/v2/beers'
+
+      try {
+        const response = await fetch(url)
+        const beers = response.ok ? await response.json() : []
+        store.commit('setSearchResults', normalizedBeers(beers))
+      } catch (e) {
+        store.commit('hasFailed')
+      }
+    },
     async fetchBeersByName (state, name) {
       try {
         const response = await fetch(`https://api.punkapi.com/v2/beers?beer_name=${name}`)
@@ -85,8 +99,18 @@ export default {
   },
   mutations: {
     setBeers: (state, beers) => {
-      state.beers = [...state.beers, ...beers]
+      state.page === 1
+        ? state.beers = beers
+        : state.beers = [
+          ...state.beers,
+          ...beers.filter(newBeer =>
+            state.beers.find(oldBeer => oldBeer.name !== newBeer.name))
+        ]
       state.page += 1
+    },
+    setSearchResults: (state, beers) => {
+      state.beers = beers
+      state.page = Math.ceil(beers.length / state.itemsPerPage)
     }
   }
 }

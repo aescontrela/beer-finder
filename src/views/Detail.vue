@@ -17,8 +17,7 @@ export default {
   },
   methods: {
     fetchResults: function () {
-      const searchParam = this.$route.params.beerName.replace(' ', '_')
-      this.$store.dispatch('fetchBeersByName', searchParam)
+      this.$store.dispatch('fetchBeersByName', encodeURIComponent(this.$route.params.beerName))
     },
     goBack: function () {
       this.$router.go(-1)
@@ -28,7 +27,7 @@ export default {
     ...mapGetters(['allBeers']),
     beer () {
       return this.$store.getters.beerById(parseInt(this.$route.params.id))
-    },
+    }
   },
   components: {
     BeerDetail,
@@ -37,7 +36,4 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-@import '../assets/styles.styl'
-
-</style>
+<style></style>

@@ -30,7 +30,7 @@ export default {
       return moment(this.first_brewed).format('MM/YYYY')
     },
     linkTo: function () {
-      const nameParam = this.name.replace(' ', '_')
+      const nameParam = encodeURIComponent(this.name)
       return `#/beer/${this.id}/${nameParam}`
     }
   }
@@ -62,11 +62,14 @@ export default {
   .card--contents
     margin-left 1em
     font-size 0.9em
+    color: #96847d
 
+    p
+      color $mediumbrown
     h2
       font-size 1.2em
       font-weight bold
-      color $darkred
+      color $darkbrown
 
   @media (max-width 720px)
     .card
