@@ -1,6 +1,8 @@
 # Find me a beer
 
-  In the project directory, you can run:
-  1. `yarn` to install the project
-  2. `yarn serve` to run the app locally 
-  3. `yarn test:unit` to run the tests  
+Web app that allows to search BrewDog beers.
+
+Bootstrapped with [Vue CLI](https://cli.vuejs.org/guide/creating-a-project.html#vue-create)
+- `yarn` to install the project
+- `yarn serve` to run the app locally 
+- `yarn test:unit` to run the tests  
